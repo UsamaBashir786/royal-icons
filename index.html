@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>ROYAL CSS SVG'S</title>
+        <link rel="stylesheet" href="css/royal-icons.css" />
         <style>
             * {
                 margin: 0;
@@ -823,6 +824,41 @@
                     align-items: center;
                 }
             }
+            .code-tabs {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 20px;
+                border-bottom: 2px solid var(--border);
+            }
+
+            .tab-btn {
+                padding: 10px 20px;
+                background: transparent;
+                border: none;
+                color: var(--text-muted);
+                font-weight: 600;
+                cursor: pointer;
+                border-bottom: 3px solid transparent;
+                transition: all 0.3s ease;
+                font-size: 0.9rem;
+            }
+
+            .tab-btn:hover {
+                color: var(--text);
+            }
+
+            .tab-btn.active {
+                color: var(--primary);
+                border-bottom-color: var(--primary);
+            }
+
+            .tab-content {
+                display: none;
+            }
+
+            .tab-content.active {
+                display: block;
+            }
         </style>
     </head>
     <body>
@@ -988,14 +1024,27 @@
                         oninput="updateIconSize(this.value)"
                     />
                 </div>
-                <!-- <div class="style-controls" style="justify-content: center; margin-bottom: 20px;">
-                <button class="filter-btn active" onclick="changeModalStyle('outline')" id="modalOutline">Outline</button>
-                <button class="filter-btn" onclick="changeModalStyle('filled')" id="modalFilled">Filled</button>
-                <button class="filter-btn" onclick="changeModalStyle('duotone')" id="modalDuotone">Duotone</button>
-            </div> -->
-                <div class="code-block">
-                    <pre id="codeBlock"></pre>
+
+                <!-- Tab Navigation -->
+                <div class="code-tabs">
+                    <button class="tab-btn active" onclick="switchTab('svg')">SVG Code</button>
+                    <button class="tab-btn" onclick="switchTab('css')">CSS Classes</button>
                 </div>
+
+                <!-- SVG Code Tab -->
+                <div class="tab-content active" id="svgTab">
+                    <div class="code-block">
+                        <pre id="codeBlock"></pre>
+                    </div>
+                </div>
+
+                <!-- CSS Classes Tab -->
+                <div class="tab-content" id="cssTab">
+                    <div class="code-block">
+                        <pre id="cssCodeBlock"></pre>
+                    </div>
+                </div>
+
                 <div class="action-buttons">
                     <button class="btn btn-primary" onclick="copyCode()"><span>📋</span> Copy Code</button>
                     <button class="btn btn-primary" onclick="downloadSVG()"><span>⬇️</span> Download SVG</button>
@@ -1010,41 +1059,49 @@
                 {
                     name: "Menu (Hamburger)",
                     category: "navigation",
+                    cssClass: "royal-icon-menu",
                     svg: '<svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>',
                 },
                 {
                     name: "Close (X)",
                     category: "navigation",
+                    cssClass: "royal-icon-close",
                     svg: '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
                 },
                 {
                     name: "Home",
                     category: "navigation",
+                    cssClass: "royal-icon-home",
                     svg: '<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>',
                 },
                 {
                     name: "Search",
                     category: "navigation",
+                    cssClass: "royal-icon-search",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>',
                 },
                 {
                     name: "Grid",
                     category: "navigation",
+                    cssClass: "royal-icon-grid",
                     svg: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>',
                 },
                 {
                     name: "List",
                     category: "navigation",
+                    cssClass: "royal-icon-list",
                     svg: '<svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>',
                 },
                 {
                     name: "More Vertical",
                     category: "navigation",
+                    cssClass: "royal-icon-more-vertical",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>',
                 },
                 {
                     name: "More Horizontal",
                     category: "navigation",
+                    cssClass: "royal-icon-more-horizontal",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>',
                 },
 
@@ -1052,51 +1109,61 @@
                 {
                     name: "Arrow Up",
                     category: "arrows",
+                    cssClass: "royal-icon-arrow-up",
                     svg: '<svg viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>',
                 },
                 {
                     name: "Arrow Down",
                     category: "arrows",
+                    cssClass: "royal-icon-arrow-down",
                     svg: '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>',
                 },
                 {
                     name: "Arrow Left",
                     category: "arrows",
+                    cssClass: "royal-icon-arrow-left",
                     svg: '<svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>',
                 },
                 {
                     name: "Arrow Right",
                     category: "arrows",
+                    cssClass: "royal-icon-arrow-right",
                     svg: '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>',
                 },
                 {
                     name: "Chevron Up",
                     category: "arrows",
+                    cssClass: "royal-icon-chevron-up",
                     svg: '<svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>',
                 },
                 {
                     name: "Chevron Down",
                     category: "arrows",
+                    cssClass: "royal-icon-chevron-down",
                     svg: '<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>',
                 },
                 {
                     name: "Chevron Left",
                     category: "arrows",
+                    cssClass: "royal-icon-chevron-left",
                     svg: '<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>',
                 },
                 {
                     name: "Chevron Right",
                     category: "arrows",
+                    cssClass: "royal-icon-chevron-right",
                     svg: '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>',
                 },
                 {
                     name: "Arrow Up Circle",
                     category: "arrows",
+                    cssClass: "royal-icon-arrow-up-circle",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="16 12 12 8 8 12"></polyline><line x1="12" y1="16" x2="12" y2="8"></line></svg>',
                 },
                 {
                     name: "Arrow Down Circle",
                     category: "arrows",
+                    cssClass: "royal-icon-arrow-down-circle",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="8 12 12 16 16 12"></polyline><line x1="12" y1="8" x2="12" y2="16"></line></svg>',
                 },
 
@@ -1104,131 +1171,157 @@
                 {
                     name: "Settings",
                     category: "interface",
+                    cssClass: "royal-icon-settings",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M12 1v6m0 6v6"></path><path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24"></path><path d="m1 12h6m6 0h6"></path><path d="m4.93 19.07 4.24-4.24m5.66-5.66 4.24-4.24"></path></svg>',
                 },
                 {
                     name: "User",
                     category: "interface",
+                    cssClass: "royal-icon-user",
                     svg: '<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>',
                 },
                 {
                     name: "Users",
                     category: "interface",
+                    cssClass: "royal-icon-users",
                     svg: '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>',
                 },
                 {
                     name: "Bell",
                     category: "interface",
+                    cssClass: "royal-icon-bell",
                     svg: '<svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>',
                 },
                 {
                     name: "Heart",
                     category: "interface",
+                    cssClass: "royal-icon-heart",
                     svg: '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>',
                 },
                 {
                     name: "Star",
                     category: "interface",
+                    cssClass: "royal-icon-star",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>',
                 },
                 {
                     name: "Check",
                     category: "interface",
+                    cssClass: "royal-icon-check",
                     svg: '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>',
                 },
                 {
                     name: "Check Circle",
                     category: "interface",
+                    cssClass: "royal-icon-check-circle",
                     svg: '<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>',
                 },
                 {
                     name: "Plus",
                     category: "interface",
+                    cssClass: "royal-icon-plus",
                     svg: '<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>',
                 },
                 {
                     name: "Plus Circle",
                     category: "interface",
+                    cssClass: "royal-icon-plus-circle",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>',
                 },
                 {
                     name: "Minus",
                     category: "interface",
+                    cssClass: "royal-icon-minus",
                     svg: '<svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"></line></svg>',
                 },
                 {
                     name: "Minus Circle",
                     category: "interface",
+                    cssClass: "royal-icon-minus-circle",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>',
                 },
                 {
                     name: "Trash",
                     category: "interface",
+                    cssClass: "royal-icon-trash",
                     svg: '<svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>',
                 },
                 {
                     name: "Edit",
                     category: "interface",
+                    cssClass: "royal-icon-edit",
                     svg: '<svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>',
                 },
                 {
                     name: "Download",
                     category: "interface",
+                    cssClass: "royal-icon-download",
                     svg: '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>',
                 },
                 {
                     name: "Upload",
                     category: "interface",
+                    cssClass: "royal-icon-upload",
                     svg: '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>',
                 },
                 {
                     name: "Lock",
                     category: "interface",
+                    cssClass: "royal-icon-lock",
                     svg: '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>',
                 },
                 {
                     name: "Unlock",
                     category: "interface",
+                    cssClass: "royal-icon-unlock",
                     svg: '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>',
                 },
                 {
                     name: "Eye",
                     category: "interface",
+                    cssClass: "royal-icon-eye",
                     svg: '<svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>',
                 },
                 {
                     name: "Eye Off",
                     category: "interface",
+                    cssClass: "royal-icon-eye-off",
                     svg: '<svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>',
                 },
                 {
                     name: "Calendar",
                     category: "interface",
+                    cssClass: "royal-icon-calendar",
                     svg: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>',
                 },
                 {
                     name: "Clock",
                     category: "interface",
+                    cssClass: "royal-icon-clock",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>',
                 },
                 {
                     name: "Folder",
                     category: "interface",
+                    cssClass: "royal-icon-folder",
                     svg: '<svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>',
                 },
                 {
                     name: "File",
                     category: "interface",
+                    cssClass: "royal-icon-file",
                     svg: '<svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>',
                 },
                 {
                     name: "Copy",
                     category: "interface",
+                    cssClass: "royal-icon-copy",
                     svg: '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>',
                 },
                 {
                     name: "Filter",
                     category: "interface",
+                    cssClass: "royal-icon-filter",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>',
                 },
 
@@ -1236,66 +1329,79 @@
                 {
                     name: "Play",
                     category: "media",
+                    cssClass: "royal-icon-play",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>',
                 },
                 {
                     name: "Play Circle",
                     category: "media",
+                    cssClass: "royal-icon-play-circle",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>',
                 },
                 {
                     name: "Pause",
                     category: "media",
+                    cssClass: "royal-icon-pause",
                     svg: '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>',
                 },
                 {
                     name: "Pause Circle",
                     category: "media",
+                    cssClass: "royal-icon-pause-circle",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="10" y1="15" x2="10" y2="9"></line><line x1="14" y1="15" x2="14" y2="9"></line></svg>',
                 },
                 {
                     name: "Stop Circle",
                     category: "media",
+                    cssClass: "royal-icon-stop-circle",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><rect x="9" y="9" width="6" height="6"></rect></svg>',
                 },
                 {
                     name: "Skip Forward",
                     category: "media",
+                    cssClass: "royal-icon-skip-forward",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>',
                 },
                 {
                     name: "Skip Backward",
                     category: "media",
+                    cssClass: "royal-icon-skip-backward",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"></polygon><line x1="5" y1="19" x2="5" y2="5"></line></svg>',
                 },
                 {
                     name: "Volume",
                     category: "media",
+                    cssClass: "royal-icon-volume",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>',
                 },
                 {
                     name: "Volume Off",
                     category: "media",
+                    cssClass: "royal-icon-volume-off",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>',
                 },
                 {
                     name: "Camera",
                     category: "media",
+                    cssClass: "royal-icon-camera",
                     svg: '<svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>',
                 },
                 {
                     name: "Image",
                     category: "media",
+                    cssClass: "royal-icon-image",
                     svg: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>',
                 },
                 {
                     name: "Video",
                     category: "media",
+                    cssClass: "royal-icon-video",
                     svg: '<svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>',
                 },
                 {
                     name: "Music",
                     category: "media",
+                    cssClass: "royal-icon-music",
                     svg: '<svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>',
                 },
 
@@ -1303,36 +1409,43 @@
                 {
                     name: "Share",
                     category: "social",
+                    cssClass: "royal-icon-share",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>',
                 },
                 {
                     name: "Message Circle",
                     category: "social",
+                    cssClass: "royal-icon-message-circle",
                     svg: '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>',
                 },
                 {
                     name: "Message Square",
                     category: "social",
+                    cssClass: "royal-icon-message-square",
                     svg: '<svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>',
                 },
                 {
                     name: "Mail",
                     category: "social",
+                    cssClass: "royal-icon-mail",
                     svg: '<svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>',
                 },
                 {
                     name: "Phone",
                     category: "social",
+                    cssClass: "royal-icon-phone",
                     svg: '<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>',
                 },
                 {
                     name: "Send",
                     category: "social",
+                    cssClass: "royal-icon-send",
                     svg: '<svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>',
                 },
                 {
                     name: "Thumbs Up",
                     category: "social",
+                    cssClass: "royal-icon-thumbs-up",
                     svg: '<svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>',
                 },
 
@@ -1340,51 +1453,61 @@
                 {
                     name: "Shopping Cart",
                     category: "ecommerce",
+                    cssClass: "royal-icon-shopping-cart",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>',
                 },
                 {
                     name: "Shopping Bag",
                     category: "ecommerce",
+                    cssClass: "royal-icon-shopping-bag",
                     svg: '<svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>',
                 },
                 {
                     name: "Credit Card",
                     category: "ecommerce",
+                    cssClass: "royal-icon-credit-card",
                     svg: '<svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>',
                 },
                 {
                     name: "Dollar Sign",
                     category: "ecommerce",
+                    cssClass: "royal-icon-dollar-sign",
                     svg: '<svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>',
                 },
                 {
                     name: "Tag",
                     category: "ecommerce",
+                    cssClass: "royal-icon-tag",
                     svg: '<svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>',
                 },
                 {
                     name: "Package",
                     category: "ecommerce",
+                    cssClass: "royal-icon-package",
                     svg: '<svg viewBox="0 0 24 24"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>',
                 },
                 {
                     name: "Gift",
                     category: "ecommerce",
+                    cssClass: "royal-icon-gift",
                     svg: '<svg viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>',
                 },
                 {
                     name: "Truck",
                     category: "ecommerce",
+                    cssClass: "royal-icon-truck",
                     svg: '<svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>',
                 },
                 {
                     name: "Percent",
                     category: "ecommerce",
+                    cssClass: "royal-icon-percent",
                     svg: '<svg viewBox="0 0 24 24"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>',
                 },
                 {
                     name: "Award",
                     category: "ecommerce",
+                    cssClass: "royal-icon-award",
                     svg: '<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>',
                 },
             ];
@@ -1409,9 +1532,9 @@
                     const card = document.createElement("div");
                     card.className = `icon-card ${currentStyle}`;
                     card.innerHTML = `
-                <div class="icon-wrapper">${icon.svg}</div>
-                <div class="icon-name">${icon.name}</div>
-            `;
+            <div class="icon-wrapper">${icon.svg}</div>
+            <div class="icon-name">${icon.name}</div>
+        `;
                     card.onclick = () => showModal(icon);
                     grid.appendChild(card);
                 });
@@ -1422,10 +1545,17 @@
             function showModal(icon) {
                 currentIcon = icon;
                 modalStyle = currentStyle;
-                iconSize = 24; // Reset to default size when opening modal
+                iconSize = 24;
                 document.getElementById("modalTitle").textContent = icon.name;
                 document.getElementById("sizeInput").value = iconSize;
                 document.getElementById("sizeValue").textContent = iconSize;
+
+                // Set active style button
+                document.querySelectorAll("#modal .filter-btn").forEach((btn) => btn.classList.remove("active"));
+                document
+                    .getElementById("modal" + modalStyle.charAt(0).toUpperCase() + modalStyle.slice(1))
+                    .classList.add("active");
+
                 updateModalPreview();
                 document.getElementById("modal").classList.add("active");
                 document.body.style.overflow = "hidden";
@@ -1435,7 +1565,6 @@
                 const preview = document.getElementById("iconPreview");
                 preview.className = `icon-preview preview-${modalStyle}`;
                 let svgContent = currentIcon.svg;
-                // Update SVG size
                 svgContent = svgContent.replace(/<svg([^>]*)>/, `<svg$1 width="${iconSize}" height="${iconSize}">`);
                 preview.innerHTML = svgContent;
                 updateCode();
@@ -1478,15 +1607,54 @@
                 document.getElementById("codeBlock").textContent = code;
             }
 
+            function switchTab(tab) {
+                document.querySelectorAll(".tab-btn").forEach((btn) => btn.classList.remove("active"));
+                document.querySelectorAll(".tab-content").forEach((content) => content.classList.remove("active"));
+
+                if (tab === "svg") {
+                    document.querySelectorAll(".tab-btn")[0].classList.add("active");
+                    document.getElementById("svgTab").classList.add("active");
+                } else {
+                    document.querySelectorAll(".tab-btn")[1].classList.add("active");
+                    document.getElementById("cssTab").classList.add("active");
+                    updateCSSCode();
+                }
+            }
+
+            function updateCSSCode() {
+                let cssCode = `<!-- Basic Usage -->\n<i class="royal-icon ${currentIcon.cssClass}"></i>\n\n`;
+
+                cssCode += `<!-- With Size Variants -->\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-sm"></i>  <!-- 16px -->\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-md"></i>  <!-- 24px (default) -->\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-lg"></i>  <!-- 32px -->\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-xl"></i>  <!-- 48px -->\n\n`;
+
+                cssCode += `<!-- With Color Variants -->\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-white"></i>\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-primary"></i>\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-success"></i>\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-danger"></i>\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-warning"></i>\n\n`;
+
+                cssCode += `<!-- Combined -->\n`;
+                cssCode += `<i class="royal-icon ${currentIcon.cssClass} royal-icon-lg royal-icon-primary"></i>`;
+
+                document.getElementById("cssCodeBlock").textContent = cssCode;
+            }
+
             function closeModal() {
                 document.getElementById("modal").classList.remove("active");
                 document.body.style.overflow = "";
             }
 
             function copyCode() {
-                const code = document.getElementById("codeBlock").textContent;
+                const activeTab = document.querySelector(".tab-content.active");
+                const code = activeTab.querySelector("pre").textContent;
+
                 navigator.clipboard.writeText(code).then(() => {
                     const notification = document.getElementById("notification");
+                    notification.textContent = "✓ Copied to clipboard!";
                     notification.classList.add("show");
                     setTimeout(() => notification.classList.remove("show"), 2000);
                 });
@@ -1530,6 +1698,7 @@
             document.addEventListener("keydown", (e) => {
                 if (e.key === "Escape") closeModal();
             });
+
             const toggle = document.querySelector(".nav-toggle");
             const navRight = document.querySelector(".nav-right");
 
