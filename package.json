@@ -1,20 +1,50 @@
 {
   "name": "royal-icons",
   "version": "1.0.0",
-  "description": "A modern SVG and PNG icon pack with outline, filled, and duotone styles.",
-  "main": "dist/index.js",
-  "style": "dist/css/royal-icons.css",
+  "description": "A beautiful collection of 500+ SVG icons available in multiple formats (SVG, PNG) with different styles (duotone, filled, outline). Perfect for HTML, CSS, Bootstrap, Tailwind CSS, and any web framework.",
+  "main": "dist/css/royal-icons.css",
   "files": [
-    "dist/",
-    "README.md"
+    "dist",
+    "icons",
+    "README.md",
+    "LICENSE"
   ],
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
   "keywords": [
     "icons",
     "svg",
-    "png",
+    "svg-icons",
     "royal-icons",
-    "icon-pack"
+    "web-icons",
+    "ui-icons",
+    "vector-icons",
+    "icon-library",
+    "icon-pack",
+    "png-icons",
+    "duotone-icons",
+    "filled-icons",
+    "outline-icons",
+    "bootstrap-icons",
+    "tailwind-icons",
+    "html-icons",
+    "css-icons"
   ],
-  "author": "Your Name",
-  "license": "MIT"
+  "author": {
+    "name": "Usama Bashir",
+    "email": "your.email@example.com",
+    "url": "https://github.com/UsamaBashir786"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UsamaBashir786/royal-icons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/UsamaBashir786/royal-icons/issues"
+  },
+  "homepage": "https://github.com/UsamaBashir786/royal-icons#readme",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
 }

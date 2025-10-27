@@ -1,0 +1,30 @@
+# Development files
+node_modules/
+.DS_Store
+.env
+*.log
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test files
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Demo files (optional - agar aap demo files publish nahi karna chahte)
+# index.html
+# test.html
+
+# Other
+.github/
+coverage/
